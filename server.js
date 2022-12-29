@@ -1,5 +1,6 @@
 'use strict';
-const request = require('request');
+const geocode = require('./utils/geocode');
+
 //var http = require('http');
 //var port = process.env.PORT || 1337;
 
@@ -23,18 +24,8 @@ const request = require('request');
 //    }
 //});
 
-const mapUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?limit=1&access_token=pk.eyJ1IjoidHJldm9ya25vdHRzIiwiYSI6ImNsYzZzMjNoYTMwbjkzb3BqdzU4ajVvNGsifQ.zCDe0B4lA5AoXppoUwaYug'
-request({ url: mapUrl, json: true }, (error, response) => {
-    if (error) {
-        console.log('Error: ' + error);
-    } else if (response.body.features.length === 0) {
-        console.log('Unable to find location.');
-    } else {
-        const arr = response.body.features[0].center;
 
-        const lat = arr[1];
-        const lon = arr[0];
-        console.log('Latitude: ' + lat);
-        console.log('Longitude: ' + lon);
-    }
+geocode('Boston', (error, data) => {
+    console.log('Error: ', error);
+    console.log('Data: ', data);
 });
